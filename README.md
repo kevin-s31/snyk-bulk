@@ -8,12 +8,12 @@ __Useful for:__
   * contents are not known ahead of time
   * scanning "out-of-band", not directly in the developer build pipeline
 
-## Examples - future plans
-build your snyk-bulk image for python3 scanning
+## Example: How to use snyk-bulk to scan only for python projects
+1. Build your snyk-bulk image for python3 scanning
 
 `docker build -t snyk-bulk:python3 -f Dockerfile-python .`
 
-snyk scan all python3 projects
+2. Snyk scan all python3 projects
 
 `docker run -it --rm --env SNYK_TOKEN --env CI=1 -v $(PWD):/project snyk-bulk:python3 --test --target /project --json-std-out`
 
