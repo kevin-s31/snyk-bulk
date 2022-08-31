@@ -11,7 +11,7 @@ jobs:
     - name: snyk container test
       uses: snyk/actions/golang@master
       with:
-        args: --container golang:latest --app-vulns --nested-jars-depth=5 --file=Dockerfile-go 
+        args: --container golang:latest --app-vulns --nested-jars-depth=5 --file=Dockerfile-go --sarif-file-output=snyk.sarif
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true
