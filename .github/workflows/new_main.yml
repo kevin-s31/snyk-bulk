@@ -1,0 +1,21 @@
+name: Snyk example
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-go@v1
+      with:
+        go-version: "1.13"
+    - name: snyk container test
+      uses: snyk/actions/golang@master
+      with:
+        args: --container golang:latest --app-vulns --nested-jars-depth=5 --file=Dockerfile-go 
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      continue-on-error: true
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: snyk.sarif
